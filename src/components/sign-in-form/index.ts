@@ -1,3 +1,3 @@
-import SingInForm from './sing-in-form'
+import SignInForm from './sign-in-form'
 
-export default SingInForm
+export default SignInForm

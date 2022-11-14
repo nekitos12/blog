@@ -1,3 +1,3 @@
-import Header from './header'
+import ArticleContainer from './article-container'
 
-export default Header
+export default ArticleContainer

@@ -1,26 +1,37 @@
-import React from 'react';
-import './header.scss';
-import {Button} from "@mui/material";
+import React, {useState} from 'react';
+import './article-container.scss';
+import {IArticle} from "../../types/article";
+import Article from "../article";
+import {Pagination, PaginationItem} from "@mui/material";
+import {useFetchAllArticleQuery} from "../../services/articleService";
+import {Link} from "react-router-dom";
 
-interface IHeader {
-    setReg: (b: boolean)=>void
-    setWantToReg: (b: boolean)=>void
-}
-export default function Header({setReg, setWantToReg}:IHeader) {
-  return (
-    <header className="app-header">
-        <div className="app-header__title">Realworld Blog</div>
-        <div className="app-header__profile profile">
-            <Button variant="text" className="app-header__signin profile__button" onClick={()=> {
-                setReg(true)
-                setWantToReg(false)
-            }}>Sign In</Button>
-            <Button variant="outlined" className="app-header__signup profile__button" onClick={()=> {
-                setWantToReg(true)
-                setReg(false)
-            }}>Sign Up</Button>
+// interface IArticleContainerProps {
+//     articleList: IArticle[]
+// }
+export default function ArticleContainer({defPage = ''}) {
+    const [page, setPage] = useState(1)
+    const { data: articleData } = useFetchAllArticleQuery(Number(defPage || page))
 
-        </div>
-    </header>
-  );
+    console.log(page)
+    if (!articleData || !articleData.articles.length)return null
+
+    return (
+        <>
+            <ul className="article-container">
+                {articleData && articleData.articles.map(article => (
+                    <li key={article.slug}>
+                        <Article {...article}/>
+                    </li>
+                ))}
+            </ul>
+            {articleData &&
+                <Pagination sx={{mx: 'auto', width: 'fit-content'}} count={Math.ceil(articleData.articlesCount / 5)}
+                            page={Number(defPage || page)} onChange={(_, num) => setPage(num)} shape="rounded" color="primary"
+                            renderItem={item => <PaginationItem component={Link}
+                                                                to={`/articles/?page=${item.page}`} {...item}/>}/>}
+        </>
+
+
+    );
 }

@@ -1,3 +1,3 @@
-import SignUpForm from './sign-up-form'
+import UserSettingsForm from './user-settings-form'
 
-export default SignUpForm
+export default UserSettingsForm

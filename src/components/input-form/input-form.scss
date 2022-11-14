@@ -1,16 +1,14 @@
-.app-header {
-  height: 80px;
-  padding: 13px 22px;
-  background: #fff;
-  font-size: var(--h6-size);
-  line-height: var(--h6-lh);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  &__signup {
-    font-size: var(--h6-size) !important;
-    line-height: var(--h6-lh) !important;
-    text-transform: capitalize !important;
-    padding: 6px 18px 10px !important;
+.label {
+  line-height: 22px;
+  display: block;
+  font-size: var(--font-base-size);
+  &__input {
+    color: #BFBFBF;
+    font-size: var(--font-lg-size);
+    line-height: 24px;
+    padding: 8px 12px;
+    display: block;
+    min-width: 320px;
+    border: 1px solid #BFBFBF;
   }
 }

@@ -1,45 +1,34 @@
 import React from 'react';
-import './article.scss';
-import {IArticle} from "../../types/article";
-import format from 'date-fns/format'
-import {Link} from "react-router-dom";
+import './article-full.scss';
+import ReactMarkdown from 'react-markdown'
+import remarkGfm from 'remark-gfm'
 
-export default function Article({slug='', author, tagList,  favoritesCount, title='',  createdAt='', body, description}: IArticle) {
-    const getCutText = (text: string, maxLength = 80): string => {
-        return  text.length > maxLength ? `${text.slice(0, maxLength)}...` : text
-    }
-    const articleCreatedAt = format(new Date(createdAt), 'LLLL d, y')
+
+export default function ArticleFull() {
+    const markdown = `
+# Est Ampyciden pater patent
+
+## Amor saxa inpiger
+### Lorem markdownum Stygias neque is referam fudi, breve per. Et Achaica tamen: nescia ista occupat, illum se ad potest humum et
+
+## Qua deos has fontibus
+### Recens nec ferro responsaque dedere armenti opes momorderat pisce, vitataque et fugisse. Et iamque incipiens, qua huius suo omnes ne pendentia citus pedum.
+
+## Quamvis pronuba
+### Ulli labore facta. Io cervis non nosterque nullae, vides: aethere Delphice subit, tamen Romane ob cubilia Rhodopen calentes librata! Nihil populorum flava, inrita? Sit hic nunc, hoc formae Esse illo? Umeris eram similis, crudelem de est relicto ingemuit finiat Pelia uno cernunt Venus draconem, hic, Methymnaeae.
+
+
+1. 1.Clamoribus haesit tenentem iube Haec munera
+2. 2.Vincla venae
+3. 3.Paris includere etiam tamen
+4. 4.Superi te putria imagine Deianira
+5. 5.Tremore hoste Esse sed perstat capillis siqua
+
+`
     return (
-        <article className="article">
-            <header className="article__header">
-                <div className="article__descr">
-                    <div className="article__title-wrapper">
-                        <Link to={`/articles/${slug}`}>
-                            <h1 className="article__title">{getCutText(title)}</h1>
-                        </Link>
+        <>
+            <ReactMarkdown children={markdown} remarkPlugins={[remarkGfm]}/>
+        </>
 
-                        <div className="article__likes">{favoritesCount}</div>
-                    </div>
-                    <ul className="article__tag-list">
-                        {tagList?.map(tag => tag ? <li>{tag}</li> : null)}
-                    </ul>
-                </div>
-                <div className="article__profile">
-                    <div className="article__profile-left">
-                        <div className="article__profile-name">
-                            {author?.username}
-                        </div>
-                        <div className="article__profile-created">
-                            {articleCreatedAt}
-                        </div>
-                    </div>
-
-                    <img className="article__profile-image" src={require("./1550855401-cc_light.png")}/>
-                </div>
-            </header>
-            <p className="article__body">
-                {description}
-            </p>
-        </article>
     );
 }

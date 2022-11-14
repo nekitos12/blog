@@ -1,11 +1,10 @@
 import React from 'react';
+import SignInForm from "../components/sign-in-form";
 
-const SignInFormPage = () => {
+export default function SignInFormPage () {
     return (
-        <div>
-            
-            </div>
+        <div className="sign-in-form">
+            <SignInForm />
+        </div>
     );
 };
-
-export default SignInFormPage;

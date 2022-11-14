@@ -1,3 +1,3 @@
-import Article from './article'
+import ArticleFull from './article-full'
 
-export default Article
+export default ArticleFull

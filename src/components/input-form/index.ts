@@ -1,3 +1,3 @@
-import Header from './header'
+import InputForm from './input-form'
 
-export default Header
+export default InputForm

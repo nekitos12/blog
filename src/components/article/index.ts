@@ -1,3 +1,3 @@
-import App from './app'
+import Article from './article'
 
-export default App
+export default Article

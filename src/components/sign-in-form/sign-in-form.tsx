@@ -1,10 +1,19 @@
 import React from 'react';
-import './sing-in-form.scss';
+import './sign-in-form.scss';
+import UserSettingsForm from "../user-settings-form";
 
-export default function SingInForm() {
+export default function SignInForm() {
+  const inputField = [
+    {
+      label: "Email address",
+      name: "email",
+    },
+    {
+      label: "Password",
+      name: "password",
+    },
+  ];
   return (
-    <div className="sign-in-form">
-      Форма входа
-    </div>
+      <UserSettingsForm submitText="Login" header="sign in" inputField={inputField} footer={["Don’t have an account?", "Sign Up."]} />
   );
 }
