@@ -1,0 +1,16 @@
+.app-header {
+  height: 80px;
+  padding: 13px 22px;
+  background: #fff;
+  font-size: var(--h6-size);
+  line-height: var(--h6-lh);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  &__signup {
+    font-size: var(--h6-size) !important;
+    line-height: var(--h6-lh) !important;
+    text-transform: capitalize !important;
+    padding: 6px 18px 10px !important;
+  }
+}

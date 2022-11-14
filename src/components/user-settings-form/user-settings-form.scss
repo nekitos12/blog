@@ -1,0 +1,30 @@
+.sign-up-form {
+  width: min-content;
+  margin: 0 auto;
+  margin-top: 60px;
+  background: #fff;
+  padding: 48px 32px;
+  &__header{
+    font-size: var(--h5-size);
+    line-height: var(--h5-lh);
+    margin-bottom: 20px;
+    text-align: center;
+    text-transform: capitalize;
+  }
+  &__input:last-child {
+    margin-bottom: 20px;
+  }
+  &__input + &__input {
+    margin-top: 12px;
+  }
+  &__footer {
+    text-align: center;
+    color: #8C8C8C;
+    font-size: 12px;
+    line-height: 20px;
+    margin-top: 8px;
+  }
+  &__footer-span {
+    color: #1890FF;
+  }
+}

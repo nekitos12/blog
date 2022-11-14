@@ -1,0 +1,67 @@
+
+
+
+
+.article {
+  background: #fff;
+  padding: 15px;
+  width: 940px;
+  margin: 0 auto;
+  margin-top: 26px;
+  filter: drop-shadow(0px 4px 12px rgba(0, 0, 0, 0.15));
+  &__header{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    height: 52px;
+    margin-bottom: 4px;
+  }
+  &__descr{
+    width: 100%;
+  }
+  &__title-wrapper{
+
+  }
+  &__profile {
+    display: flex;
+  }
+  &__profile-image{
+    height: 46px;
+    width: 46px;
+    border-radius: 50%;
+    margin-left: 12px;
+  }
+  &__profile-name{
+    font-size: var(--h6-size);
+    line-height: var(--h6-lh);
+  }
+  &__profile-created{
+    white-space: nowrap;
+  }
+  &__likes{
+    display: inline-block;
+  }
+  &__title {
+    margin-right: 13px;
+    display: inline-block;
+    color: var(--primary);
+    font-size: var(--h5-size);
+    line-height: var(--h5-lh);
+    margin-bottom: 4px;
+  }
+  &__tag-list li{
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    border-radius: 2px;
+    width: fit-content;
+    padding: 3px 5px;
+    display: inline-block;
+    margin-right: 8px;
+  }
+  &__body {
+    width: calc(100% - 225px);
+    color: var(--text);
+    font-size: 12px;
+    line-height: 22px;
+    white-space: break-spaces;
+  }
+}
