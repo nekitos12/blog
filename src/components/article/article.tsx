@@ -25,7 +25,6 @@ export default function Article({slug='', author, tagList,  favoritesCount, titl
     const getCutText = (text: string, maxLength = 80): string => {
         return  text.length > maxLength ? `${text.slice(0, maxLength)}...` : text
     }
-    console.log(body)
     const articleCreatedAt = format(new Date(createdAt), 'LLLL d, y')
     return (
         <article className="article">

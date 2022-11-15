@@ -6,6 +6,7 @@ import App from './components/app';
 import { Provider } from 'react-redux';
 import {setUpStore} from "./store/store";
 import {BrowserRouter} from "react-router-dom";
+import './firebase'
 const store = setUpStore()
 const theme = createTheme({
     palette: {
