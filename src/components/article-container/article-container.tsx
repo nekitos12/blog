@@ -1,19 +1,22 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import './article-container.scss';
-import {IArticle} from "../../types/article";
+import {IArticle} from "../../models/types/article";
 import Article from "../article";
 import {CircularProgress, Pagination, PaginationItem, Box} from "@mui/material";
 import {useFetchAllArticleQuery} from "../../services/articleService";
-import {Link} from "react-router-dom";
-import {useAppSelector} from "../../hooks/useTypedSelector";
+import {Link, Redirect} from "react-router-dom";
+import {CurrentUserContext} from "../../services/context/userLocal";
 
 // interface IArticleContainerProps {
 //     articleList: IArticle[]
 // }
-export default function ArticleContainer({defPage = ''}) {
-    const [page, setPage] = useState(1)
-    const { data: articleData, isFetching, isError } = useFetchAllArticleQuery(Number(defPage || page))
-    console.log(isFetching)
+export default function ArticleContainer() {
+    const [page, setPage] = useState(0)
+    const { data: articleData, isFetching, isError } = useFetchAllArticleQuery( page || 1 )
+    const isAuth = useContext(CurrentUserContext)
+    if (!isAuth) {
+        return <Redirect to="/"/>
+    }
     return (
         <>
             <ul className="article-container">
@@ -28,7 +31,7 @@ export default function ArticleContainer({defPage = ''}) {
             </ul>
             {articleData &&
                 <Pagination sx={{mx: 'auto', width: 'fit-content'}} count={Math.ceil(articleData.articlesCount / 5)}
-                            page={Number(defPage || page)} onChange={(_, num) => setPage(num)} shape="rounded" color="primary"
+                            page={page || 1} onChange={(_, num) => setPage(num)} shape="rounded" color="primary"
                             renderItem={item => <PaginationItem component={Link}
                                                                 to={`/articles/?page=${item.page}`} {...item}/>}/>}
         </>

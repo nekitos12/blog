@@ -1,17 +1,17 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {IUserForm} from "./formSlice";
+import {IUserForm} from "../../components/user-settings-form/user-settings-form";
 
-interface IUser extends IUserForm{
-    accessToken: null | string
-    uid: null | string
+export interface IUser extends IUserForm{
+    accessToken?: string
+    uid?: string
+    isAuth: boolean
 }
 
 interface IAction {
-    username: string
+    username: string | undefined
     email: string
-    password: string
-    accessToken: string
-    uid: string
+    accessToken: string | undefined
+    uid: string | undefined
 }
 
 const userSlice = createSlice({
@@ -19,18 +19,18 @@ const userSlice = createSlice({
     initialState: {} as IUser,
     reducers:{
         setUser(state: IUser, action: PayloadAction<IAction>){
+            state.isAuth = true
             state.username = action.payload.username
             state.uid = action.payload.uid
             state.accessToken = action.payload.accessToken
             state.email= action.payload.email
-            state.password = action.payload.password
         },
         resetUser(state: IUser){
-            state.username = null
-            state.uid = null
-            state.accessToken = null
-            state.email= null
-            state.password = null
+            state.isAuth = false
+            state.username = ''
+            state.uid = ''
+            state.accessToken = ''
+            state.email= ''
         }
     },
 });

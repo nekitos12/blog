@@ -2,12 +2,15 @@ import {useAuth} from "../hooks/useAuth";
 import ArticleContainer from "../components/article-container";
 import React from "react";
 import {Redirect} from "react-router-dom";
+import {useAppSelector} from "../hooks/useTypedSelector";
 
 export default function HomePage () {
-    const { isAuth } = useAuth()
+    const user= useAppSelector(state => state.user)
+    const { isAuthLocal } = useAuth()
+    console.log('isAuthLocal', isAuthLocal)
     return (
         <>
-            {isAuth ? <ArticleContainer defPage='1'/> : <Redirect to="/sign-in" /> }
+            {user.isAuth || isAuthLocal ? <Redirect to="/articles" /> : <Redirect to="/sign-in" /> }
         </>
 
     );

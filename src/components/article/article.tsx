@@ -1,6 +1,6 @@
 import React, {FC} from 'react';
 import './article.scss';
-import {IArticle} from "../../types/article";
+import {IArticle} from "../../models/types/article";
 import format from 'date-fns/format'
 import {Link} from "react-router-dom";
 interface IArticleProps {
@@ -23,7 +23,7 @@ interface IArticleProps {
 }
 export default function Article({slug='', author, tagList,  favoritesCount, title='',  createdAt='', body, description, children}: IArticleProps) {
     const getCutText = (text: string, maxLength = 80): string => {
-        return  text.length > maxLength ? `${text.slice(0, maxLength)}...` : text
+        return  text.length > maxLength ? `${text.slice(0, maxLength)}` : text
     }
     const articleCreatedAt = format(new Date(createdAt), 'LLLL d, y')
     return (
@@ -35,10 +35,10 @@ export default function Article({slug='', author, tagList,  favoritesCount, titl
                             <h1 className="article__title">{getCutText(title)}</h1>
                         </Link>
 
-                        <div className="article__likes">{favoritesCount}</div>
+                        <div className="article__likes">❤{favoritesCount}</div>
                     </div>
                     <ul className="article__tag-list">
-                        {tagList?.map((tag, index) => tag ? <li key={index}>{tag}</li> : null)}
+                        {tagList?.map((tag, index) => tag ? <li key={index}>{getCutText(tag, 30)}</li> : null)}
                     </ul>
                 </div>
                 <div className="article__profile">
@@ -55,7 +55,7 @@ export default function Article({slug='', author, tagList,  favoritesCount, titl
                 </div>
             </header>
             <p className="article__descr">
-                {description}
+                {description && getCutText(description, 100)}
             </p>
             {children}
         </article>

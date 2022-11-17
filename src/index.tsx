@@ -7,6 +7,7 @@ import { Provider } from 'react-redux';
 import {setUpStore} from "./store/store";
 import {BrowserRouter} from "react-router-dom";
 import './firebase'
+
 const store = setUpStore()
 const theme = createTheme({
     palette: {
@@ -18,6 +19,7 @@ const theme = createTheme({
         }
     },
 });
+
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement

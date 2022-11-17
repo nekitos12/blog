@@ -11,4 +11,10 @@
     min-width: 320px;
     border: 1px solid #BFBFBF;
   }
+  &__error {
+    color: var(--error);
+  }
+  &__input_error{
+    border-color: var(--error);
+  }
 }

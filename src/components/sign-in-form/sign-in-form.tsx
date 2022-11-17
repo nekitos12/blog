@@ -2,43 +2,34 @@ import React, {useEffect} from 'react';
 import './sign-in-form.scss';
 import UserSettingsForm from "../user-settings-form";
 import {useAppDispatch} from "../../hooks/useAppDispatch";
-import {resetForm} from "../../store/slice/formSlice";
 import { getAuth, signInWithEmailAndPassword} from "firebase/auth";
-import {setUser} from "../../store/slice/userSlice";
-import {useAppSelector} from "../../hooks/useTypedSelector";
 import {useHistory} from "react-router-dom";
+import {setUser} from "../../store/slice/userSlice";
+import {emailField, passwordField} from "../../models/inputField";
+import {IUserForm} from "../user-settings-form/user-settings-form";
 
 export default function SignInForm() {
-  const {email, password, username} = useAppSelector(state => state.form)
   const dispatch = useAppDispatch()
   const {push} = useHistory()
-  useEffect(()=>{
-    dispatch(resetForm())
-  }, [])
   const inputField = [
-    {
-      label: "Email address",
-      name: "email",
-      type: "email"
-    },
-    {
-      label: "Password",
-      name: "password",
-      type: "password"
-    },
+    emailField,
+    passwordField
   ];
-  async function handleRegister(){
+  async function onSubmit(data: IUserForm){
+    const { email, password, username, avatarURL} = data
     const auth = getAuth()
-    console.log(auth)
     await signInWithEmailAndPassword(auth, email, password)
     if (auth.currentUser) {
       // @ts-ignore
       const {uid, accessToken} = auth.currentUser
-      dispatch(setUser({accessToken, password, email, uid, username}))
+      const user = {accessToken, email, uid, username, avatarURL}
+      localStorage.setItem('user', JSON.stringify(user))
+      dispatch(setUser(user))
+      console.log('я тут')
       push('/')
     }
   }
   return (
-      <UserSettingsForm handleClick={handleRegister} submitText="Login" header="sign in" inputField={inputField} footer={["Don’t have an account?", "Sign Up"]} />
+      <UserSettingsForm onSuccessSubmit={onSubmit} submitText="Login" header="sign in" inputField={inputField} footer={["Don’t have an account?", "Sign Up"]} />
   );
 }

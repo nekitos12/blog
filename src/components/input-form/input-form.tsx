@@ -1,24 +1,30 @@
 import React from 'react';
 import './input-form.scss';
-
-import {changeInput} from "../../store/slice/formSlice";
-import {useAppDispatch} from "../../hooks/useAppDispatch";
-import {useAppSelector} from "../../hooks/useTypedSelector";
+import {IUserFormFieldType} from "../../models/types/formInputRules";
+import {UseFormReturn} from "react-hook-form";
 
 interface IInput {
     name: string
     label: string
     cl?: string
+    errors: any
+    type: string
+    register: UseFormReturn['register']
+    rules: IUserFormFieldType
 }
-export default function InputForm({label, name, cl}:IInput) {
-    const formState= useAppSelector(state => state.form)
-    const dispatch = useAppDispatch()
-  return (
+export default function InputForm({register, type, label, name, cl, rules, errors}:IInput) {
+    return (
       <label className="label">
           {label}
-          <input value={formState[name]} placeholder={label} type="text" name={name} className={`label__input ${cl || ''}`} onChange={(event) => {
-              dispatch(changeInput({name: `${name}`, value: event.target.value}))
-          }}/>
+          <input
+              // @ts-ignore
+              {...register(name, rules)}
+              placeholder={label}
+              type={type}
+              name={name}
+              className={`label__input ${cl || ''} ${errors?.[name] && 'label__input_error'}`}
+          />
+          {errors?.[name] && <span className="label__error">{errors?.[name]?.message || "Введите корректные данные"}</span>}
       </label>
   )
 }

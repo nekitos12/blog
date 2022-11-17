@@ -1,10 +1,12 @@
-import {useAppSelector} from "./useTypedSelector";
-
-
 export function useAuth(){
-    const { email, accessToken, uid } = useAppSelector(state => state.user)
+
+    // @ts-ignore
+    const user = JSON.parse(localStorage.getItem('user'))
+    if (!user) return {isAuthLocal: false}
+    const { email, accessToken, uid } = user
+    console.log(email)
     return {
-        isAuth: !!email,
+        isAuthLocal: true,
         email,
         accessToken,
         uid

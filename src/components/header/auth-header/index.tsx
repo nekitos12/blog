@@ -8,6 +8,7 @@ export default function AuthHeader () {
     const dispatch = useAppDispatch()
     const {push} = useHistory()
     const handleClick = () => {
+        localStorage.clear()
         dispatch(resetUser())
         push('/')
     }

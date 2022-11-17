@@ -1,5 +1,5 @@
 import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/query/react";
-import {IArticle} from "../types/article";
+import {IArticle} from "../models/types/article";
 
 interface ArticleRequest {
     articles: IArticle[]
