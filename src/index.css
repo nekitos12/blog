@@ -40,8 +40,11 @@ ul {
   --h1-size: 44px;
   --h1-lh: 76px;
   --font-sm-size: 12px;
+  --font-sm-lh: 22px;
   --font-base-size: 14px;
+  --font-base-lh: 22px;
   --font-lg-size: 16px;
+  --font-lg-lh: 22px;
 
   /*colors*/
   --primary: #1890FF;

@@ -5,6 +5,7 @@ import {Button, Checkbox, Divider, FormControlLabel} from "@mui/material";
 import {Link} from "react-router-dom";
 import {SubmitHandler, useForm} from "react-hook-form";
 import {IUserFormFieldType} from "../../models/types/formInputRules";
+import FormError from "./form-error";
 
 interface IInputField {
     name: string
@@ -14,11 +15,12 @@ interface IInputField {
 }
 
 export interface IUserForm {
-    username?: string
-    email?: string
-    password?: string
-    avatarURL?: string
+    username: string
+    email: string
+    password: string
     confirmPassword?: string
+    avatarURL?: string
+    newPassword: string
 }
 
 interface IUserSettingsForm {
@@ -29,13 +31,20 @@ interface IUserSettingsForm {
     checkboxText?: string
     footer?: Array<string>
     divider?: boolean
-    onSuccessSubmit: ( a: IUserForm )=>void
+    onSuccessSubmit: SubmitHandler<IUserForm>
+    error: {
+        errorText: string
+        link?: {
+            text: string
+            address: string
+        }
+    }
 }
 
 
 
-export default function UserSettingsForm({onSuccessSubmit, checkboxText, inputField, footer, header, submitText, divider, classes}:IUserSettingsForm) {
-    const {register, handleSubmit, formState: { errors }, watch } = useForm({
+export default function UserSettingsForm({error, onSuccessSubmit, checkboxText, inputField, footer, header, submitText, divider, classes}:IUserSettingsForm) {
+    const {register, handleSubmit, formState: { errors }, watch } = useForm<IUserForm>({
         mode: "onBlur"
     })
     const onSubmit:SubmitHandler<IUserForm> = (data) =>{
@@ -46,17 +55,16 @@ export default function UserSettingsForm({onSuccessSubmit, checkboxText, inputFi
     return (
         <form onSubmit={handleSubmit(onSubmit)} className="user-settings-form">
             <>
+
                 <header className="user-settings-form__header">{header}</header>
                 {inputField.map(({name, label,type , rules}) => {
                     if (name === 'confirmPassword') {
-                        console.log(name)
                         // @ts-ignore
                         rules.validate = (val: string) => {
                             if (watch('password') !== val) {
                                 return "Ваши пароли не совпадают";
                             }
                         }
-                        console.log(rules)
                     }
                     return (
                         <div key={name}>
@@ -70,9 +78,11 @@ export default function UserSettingsForm({onSuccessSubmit, checkboxText, inputFi
                 {checkboxText &&
                     <FormControlLabel sx={{mr: 0, width: '100%', whiteSpace: 'break-spaces', mt: 1, mb: 2.5}}
                                       control={<Checkbox defaultChecked/>} label={checkboxText}/>}
+                {error.errorText && <FormError {...error}/>}
                 <Button  component="button" type="submit" variant="contained" color="primary"
                         className="user-settings-form"
                         sx={{width: '100%'}}>{submitText}</Button>
+
                 {footer && (<footer className="user-settings-form__footer">
                     {footer[0]}
                     <span className="user-settings-form__footer-span">

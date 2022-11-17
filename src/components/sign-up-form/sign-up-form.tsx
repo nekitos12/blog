@@ -1,15 +1,17 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './sign-up-form.scss'
 import UserSettingsForm from "../user-settings-form";
 import {useAppDispatch} from "../../hooks/useAppDispatch";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-import {useHistory} from "react-router-dom";
+import {getAuth, createUserWithEmailAndPassword, updateProfile} from "firebase/auth";
+import {Link, useHistory} from "react-router-dom";
 import {setUser} from "../../store/slice/userSlice";
 import {confirmPasswordField, emailField, passwordField, usernameField} from "../../models/inputField";
 import { IUserForm } from '../user-settings-form/user-settings-form';
+import {UserFormError, UserFormErrorMessage} from "../../models/types/userRequestError";
 
 
 export default function SignUpForm() {
+    const [errorForm, setErrorForm] = useState('')
     const dispatch = useAppDispatch()
     const {push} = useHistory()
     const inputField = [
@@ -20,22 +22,42 @@ export default function SignUpForm() {
     ];
 
     async function onSubmit(data: IUserForm) {
-        const { email, password, username, avatarURL} = data
-        const auth = getAuth()
-        await createUserWithEmailAndPassword(auth, email, password)
-        if (auth.currentUser) {
-            // @ts-ignore
-            const {uid, accessToken} = auth.currentUser
-            const user = {accessToken, email, uid, username, avatarURL}
-            localStorage.setItem('user', JSON.stringify(user))
-            dispatch(setUser(user))
-            push('/')
-        }
+        try {
+            const {email, password, username} = data
+            const auth = getAuth()
+            await createUserWithEmailAndPassword(auth, email, password)
 
+            if (auth.currentUser) {
+                await updateProfile(auth.currentUser, {
+                    displayName: username
+                })
+                // @ts-ignore
+                const {uid, accessToken} = auth.currentUser
+                const user = {accessToken, email, uid, username, password}
+                localStorage.setItem('user', JSON.stringify(user))
+                dispatch(setUser(user))
+                push('/')
+            }
+        } catch (e) {
+
+            if (e instanceof Error) {
+
+                const a = e.message.slice(e.message.indexOf('auth') + 5, -2)
+                console.log(a)
+                switch (a) {
+                    case UserFormError.emailInUse:
+                        setErrorForm(UserFormErrorMessage.emailInUse)
+                        break
+                    default:
+                        setErrorForm('Произошла ошибка')
+                }
+            }
+        }
     }
+
   return (
       <div className="sign-up-form">
-          <UserSettingsForm divider onSuccessSubmit={onSubmit} submitText="Create" header="Create new account" inputField={inputField} checkboxText="I agree to the processing of my personal information" footer={["Already have an account?", "Sign In" ]}/>
+          <UserSettingsForm error={{errorText: errorForm, link: {address: '/sign-in', text: 'страницу входа'}}} divider onSuccessSubmit={onSubmit} submitText="Create" header="Create new account" inputField={inputField} checkboxText="I agree to the processing of my personal information" footer={["Already have an account?", "Sign In" ]}/>
       </div>
 
 

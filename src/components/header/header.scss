@@ -1,3 +1,15 @@
+.profile{
+  display: flex;
+  align-items: center;
+  &__button{
+    font-size: var(--h6-size) !important;
+    line-height: var(--h6-lh) !important;
+    text-transform: capitalize !important;
+    padding: 6px 18px 10px !important;
+  }
+}
+
+
 .app-header {
   height: 80px;
   padding: 13px 22px;
@@ -9,6 +21,10 @@
   align-items: center;
   &__link{
     text-decoration: none;
+    cursor: pointer;
+  }
+  &__link + &__link {
+    margin-left: 27px;
   }
   &__title{
     margin-block-start: 0;
@@ -17,13 +33,31 @@
   &__signup {
     color: var(--success)
   }
-}
-
-.profile{
-  &__button{
-    font-size: var(--h6-size) !important;
-    line-height: var(--h6-lh) !important;
-    text-transform: capitalize !important;
-    padding: 6px 18px 10px !important;
+  &__create-article {
+    color: var(--success) !important;
+    font-size: var(--font-base-size) !important;
+    line-height: var(--font-base-lh) !important;
+    padding: 6px 10px !important;
+    text-transform: none !important;
+  }
+  &__user{
+    display: flex;
+    align-items: center;
+    padding: 0 !important;
+  }
+  &__username {
+    font-size: var(--h6-size);
+    line-height: var(--h6-lh);
+    margin-right: 13px;
+    text-transform: none;
+  }
+  &__userphoto {
+    width: 46px;
+    height: 46px;
+    background: url("./../../models/img/header/defaultUser.png") no-repeat;
+    background-size: contain;
   }
 }
+
+
+

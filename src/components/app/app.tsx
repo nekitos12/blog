@@ -10,6 +10,7 @@ import {useAppSelector} from "../../hooks/useTypedSelector";
 import HomePage from '../../pages/home-page';
 import {useAuth} from "../../hooks/useAuth";
 import {CurrentUserContext} from "../../services/context/userLocal";
+import ProfileUserPage from "../../pages/profile-user-page";
 export default function App() {
     const { isAuth }= useAppSelector(state => state.user)
     const { isAuthLocal } = useAuth()
@@ -24,6 +25,7 @@ export default function App() {
                     <Route exact path="/sign-up"><SignUpFormPage/></Route>
                     <Route exact path="/articles"><ArticleContainer/></Route>
                     <Route exact path="/articles/:slug"><ArticlePage/></Route>
+                    <Route exact path="/profile"><ProfileUserPage/></Route>
                 </Switch>
             </div>
         </CurrentUserContext.Provider>

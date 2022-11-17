@@ -17,4 +17,8 @@ interface IConfirmPassword  {
     validate: null | ((val: string)=> string )
 }
 
-export type IUserFormFieldType = IEmail | IUsername | IPassword | IConfirmPassword
+interface IAvatar {
+    required: string
+}
+
+export type IUserFormFieldType = IEmail | IUsername | IPassword | IConfirmPassword | IAvatar
