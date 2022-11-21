@@ -12,10 +12,7 @@ export default function ArticlePage () {
     if (!data) return null
     return (
         <div style={{width: "min-content", margin: 'auto', background: '#000'}}>
-            <Article  {...data?.article}>
-                <ArticleFull/>
-            </Article>
-
+            <Article full={true} {...data?.article} />
         </div>
     );
 };

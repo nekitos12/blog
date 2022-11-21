@@ -1,14 +1,12 @@
 export function useAuth(){
 
-    // @ts-ignore
-    const user = JSON.parse(localStorage.getItem('user'))
+    const user = JSON.parse(localStorage.getItem('user') || 'null')
     if (!user) return {isAuthLocal: false}
-    const { email, accessToken, uid } = user
-    console.log(email)
+    const { email,  token, username } = user
     return {
         isAuthLocal: true,
         email,
-        accessToken,
-        uid
+        token,
+        username
     }
 }

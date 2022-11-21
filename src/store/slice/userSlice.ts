@@ -1,51 +1,37 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 
-export interface IUser{
-    accessToken?: string
-    uid?: string
-    isAuth: boolean
-    username: string
-    email: string
-    avatarURL?: string
-    password: string
+export interface ILogUser{
+    isAuth?: boolean
+    token: string
+    username?: string
+    email?:string
+    bio?: string
+    image?: string
 }
 
-interface IAction {
-    username: string
-    email: string
-    accessToken?: string
-    uid?: string
-    avatarURL?: string
-    password: string
-}
 
-const userSlice = createSlice({
+const logUserSlice = createSlice({
     name: 'user',
-    initialState: {} as IUser,
+    initialState: {} as ILogUser,
     reducers:{
-        setUser(state: IUser, action: PayloadAction<IAction>){
+        setUser(state: ILogUser, action: PayloadAction<ILogUser>){
+            console.log(action.payload.token)
             state.isAuth = true
-            state.username = action.payload.username
-            state.uid = action.payload.uid
-            state.accessToken = action.payload.accessToken
-            state.email= action.payload.email
-            state.password = action.payload.password
+            state.token = action.payload.token
         },
-        updateUser (state: IUser, action: PayloadAction<IAction>){
-            for (let key in action.payload){
-                state[key] = action.payload[key]
-            }
-        },
-        resetUser(state: IUser){
+        resetUser(state: ILogUser, action: PayloadAction<ILogUser>){
+            console.log(action)
             state.isAuth = false
-            state.username = ''
-            state.uid = ''
-            state.accessToken = ''
-            state.email= ''
-            state.password = ''
+            state.token = action.payload.token
+        },
+        updateUser(state: ILogUser, action: PayloadAction<ILogUser>){
+            console.log(action)
+            for (const key in action.payload){
+                state[key] = key
+            }
         }
     },
 });
 
-export const {setUser, resetUser, updateUser} = userSlice.actions
-export default userSlice.reducer;
+export const {setUser, resetUser, updateUser} = logUserSlice.actions
+export default logUserSlice.reducer;

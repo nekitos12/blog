@@ -6,6 +6,7 @@ import {CircularProgress, Pagination, PaginationItem, Box} from "@mui/material";
 import {useFetchAllArticleQuery} from "../../services/articleService";
 import {Link, Redirect} from "react-router-dom";
 import {CurrentUserContext} from "../../services/context/userLocal";
+import {useAuth} from "../../hooks/useAuth";
 
 // interface IArticleContainerProps {
 //     articleList: IArticle[]
@@ -13,10 +14,12 @@ import {CurrentUserContext} from "../../services/context/userLocal";
 export default function ArticleContainer() {
     const [page, setPage] = useState(0)
     const { data: articleData, isFetching, isError } = useFetchAllArticleQuery( page || 1 )
-    const isAuth = useContext(CurrentUserContext)
-    if (!isAuth) {
-        return <Redirect to="/"/>
-    }
+    const { isAuthLocal } = useAuth()
+
+    // if (!isAuthLocal) {
+    //     return <Redirect to="/"/>
+    // }
+    console.log(articleData)
     return (
         <>
             <ul className="article-container">

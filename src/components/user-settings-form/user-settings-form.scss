@@ -14,6 +14,9 @@
   &__input:last-child {
     margin-bottom: 20px;
   }
+  &__input {
+    min-width: 320px;
+  }
   &__input + &__input {
     margin-top: 12px;
   }

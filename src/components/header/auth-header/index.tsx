@@ -9,7 +9,7 @@ export default function AuthHeader ({username}: { username: string }) {
     const {push} = useHistory()
     const handleClick = () => {
         localStorage.clear()
-        dispatch(resetUser())
+        dispatch(resetUser({token: ''}))
         push('/')
     }
 
@@ -18,7 +18,7 @@ export default function AuthHeader ({username}: { username: string }) {
     }
     return (
         <>
-            <Link to="/sign-up" className="app-header__link">
+            <Link to="/new-article" className="app-header__link">
                 <Button variant="outlined" className="app-header__create-article" color="success">Create
                     article</Button>
             </Link>

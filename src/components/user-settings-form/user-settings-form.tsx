@@ -4,7 +4,7 @@ import InputForm from "../input-form";
 import {Button, Checkbox, Divider, FormControlLabel} from "@mui/material";
 import {Link} from "react-router-dom";
 import {SubmitHandler, useForm} from "react-hook-form";
-import {IUserFormFieldType} from "../../models/types/formInputRules";
+import {IUserFormFieldType} from "../../models/types/userInputRules";
 import FormError from "./form-error";
 
 interface IInputField {
@@ -68,7 +68,7 @@ export default function UserSettingsForm({error, onSuccessSubmit, checkboxText, 
                     }
                     return (
                         <div key={name}>
-                            <InputForm errors={errors} type={type} register={register} rules={rules} name={name}
+                            <InputForm  errors={errors} type={type} register={register} rules={rules} name={name}
                                        label={label} cl="user-settings-form__input"/>
                         </div>);
 

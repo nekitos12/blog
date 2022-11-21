@@ -14,7 +14,18 @@
     justify-content: space-between;
     align-items: flex-start;
     height: 62px;
-    margin-bottom: 4px;
+    margin-bottom: 16px;
+    position: relative;
+  }
+  &__header-btn {
+    font-size: var(--font-base-size) !important;
+    line-height: var(--font-base-lh) !important;
+    white-space: nowrap;
+    text-transform: none !important;
+    padding: 6px 20px !important;
+  }
+  &__header-btn + &__header-btn{
+    margin-left: 12px;
   }
   &__title-wrapper{
     margin-bottom: 4px;

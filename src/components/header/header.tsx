@@ -1,26 +1,26 @@
-import React, {useContext, useMemo} from 'react';
+import React, {useContext, useEffect, useMemo} from 'react';
 import './header.scss';
 import {Link} from "react-router-dom";
 import NoneAuthHeader from "./none-auth-header";
 import AuthHeader from "./auth-header";
 import {useAppSelector} from "../../hooks/useTypedSelector";
 import {CurrentUserContext} from "../../services/context/userLocal";
+import {useAuth} from "../../hooks/useAuth";
+
 
 
 export default function Header() {
-    // const user = useAppSelector(state => state.user.username)
-    const a = useMemo(()=>localStorage.getItem('user')?.['username'], [])
-    const isAuth = useContext(CurrentUserContext)
-    const { username } = useAppSelector(state => state.user)
-
-    console.log(a, username)
+    const {user, isAuth, userLocal} = useContext(CurrentUserContext)
+    console.log(user)
+    console.log(isAuth)
+    console.log(userLocal)
   return (
     <header className="app-header">
         <Link to="/" className="app-header__link">
             <div className="app-header__title">Realworld Blog</div>
         </Link>
         <div className="app-header__profile profile">
-            {isAuth ? <AuthHeader username={username || a?.['username'] || ''}/> : <NoneAuthHeader/>}
+            {isAuth ? <AuthHeader username={userLocal.username || user?.username  || ''}/> : <NoneAuthHeader/>}
         </div>
     </header>
   );

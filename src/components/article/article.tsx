@@ -1,8 +1,13 @@
-import React, {FC} from 'react';
+import React, {FC, useContext} from 'react';
 import './article.scss';
 import {IArticle} from "../../models/types/article";
 import format from 'date-fns/format'
-import {Link} from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
+import ArticleFull from "../article-full";
+import {Button} from "@mui/material";
+import {CurrentUserContext} from "../../services/context/userLocal";
+import {useDeleteArticleMutation} from "../../services/articleService";
+import {useAuth} from "../../hooks/useAuth";
 interface IArticleProps {
     slug?: string | undefined,
     title?: string | undefined,
@@ -12,6 +17,7 @@ interface IArticleProps {
     createdAt?: string | undefined,
     updatedAt?: string | undefined,
     favorited?: boolean | undefined,
+    full?: boolean
     favoritesCount?: number | undefined,
     author?: {
         username: string | undefined,
@@ -19,12 +25,22 @@ interface IArticleProps {
         image?: string | undefined,
         following?: true | undefined
     }
-    children?: JSX.Element | null
 }
-export default function Article({slug='', author, tagList,  favoritesCount, title='',  createdAt='', body, description, children}: IArticleProps) {
+export default function Article({slug='', author, tagList, full= false, favoritesCount, title='',  createdAt='', body, description}: IArticleProps) {
+    const { isAuth } = useContext(CurrentUserContext)
+    const [deleteArticle, {}] = useDeleteArticleMutation()
+    const {token} = useAuth()
+    const {push} = useHistory()
+
     const getCutText = (text: string, maxLength = 80): string => {
         return  text.length > maxLength ? `${text.slice(0, maxLength)}` : text
     }
+    async function handleDelete (slug) {
+        await deleteArticle({slug, token})
+        push('/')
+    }
+
+    const handleEdit = () => push(`/articles/${slug}/edit`)
     const articleCreatedAt = format(new Date(createdAt), 'LLLL d, y')
     return (
         <article className="article">
@@ -53,11 +69,19 @@ export default function Article({slug='', author, tagList,  favoritesCount, titl
 
                     <img className="article__profile-image" src={require("./1550855401-cc_light.png")}/>
                 </div>
+                {full && isAuth && <div style={{position: "absolute", top: "60px", right: 0}}>
+                    <Button color="error" className="article__header-btn" variant="outlined" onClick={()=>handleDelete(slug)}>Delete</Button>
+                        <Button color="success" variant="outlined" className="article__header-btn" onClick={handleEdit}>Edit</Button>
+
+                </div>}
+
             </header>
             <p className="article__descr">
                 {description && getCutText(description, 100)}
             </p>
-            {children}
+            {body && full ? <div className="article__body">
+                <ArticleFull text={body}/>
+            </div> : null}
         </article>
     );
 }

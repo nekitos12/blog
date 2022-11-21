@@ -1,9 +1,11 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import { articleAPI } from '../services/articleService'
 import userReducer from './slice/userSlice'
+import {userAPI} from "../services/userService";
 const rootReducer = combineReducers({
     [articleAPI.reducerPath]: articleAPI.reducer,
-    user: userReducer,
+    [userAPI.reducerPath]: userAPI.reducer,
+    logUser: userReducer,
 })
 
 
@@ -11,7 +13,7 @@ const rootReducer = combineReducers({
 export const setUpStore = ()=> {
     return configureStore({
         reducer: rootReducer,
-        middleware: (getDefaultMiddleware => getDefaultMiddleware().concat(articleAPI.middleware))
+        middleware: (getDefaultMiddleware => getDefaultMiddleware().concat(articleAPI.middleware, userAPI.middleware))
     })
 }
 
