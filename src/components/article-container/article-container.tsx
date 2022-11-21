@@ -13,7 +13,8 @@ import {useAuth} from "../../hooks/useAuth";
 // }
 export default function ArticleContainer() {
     const [page, setPage] = useState(0)
-    const { data: articleData, isFetching, isError } = useFetchAllArticleQuery( page || 1 )
+    const {token} = useAuth()
+    const { data: articleData, isFetching, isError } = useFetchAllArticleQuery({token, page: page || 1} )
     const { isAuthLocal } = useAuth()
 
     // if (!isAuthLocal) {
@@ -23,7 +24,7 @@ export default function ArticleContainer() {
     return (
         <>
             <ul className="article-container">
-                {isFetching && <Box sx={{ display: 'flex', mt: 3, justifyContent: 'center' }}>
+                {(isFetching && !articleData) && <Box sx={{ display: 'flex', mt: 3, justifyContent: 'center', position: 'absolute' }}>
                     <CircularProgress />
                 </Box>}
                 {articleData && articleData.articles.map(article => (

@@ -28,14 +28,27 @@ interface DeleteArticleRequest {
     slug: string
 }
 
+interface FavouriteArticleRequest {
+    token: string
+    slug: string
+    isFavourite: boolean
+}
+interface FetchArticleRequest {
+    token: string
+    page: number
+}
+
 export const articleAPI = createApi({
     reducerPath: 'articleAPI',
     baseQuery: fetchBaseQuery({baseUrl: 'https://blog.kata.academy/api/'}),
     tagTypes: ['post'],
     endpoints: (build) => ({
-        fetchAllArticle: build.query<ArticleResponse, number>({
-            query: (page = 0) => ({
-                url:`/articles?limit=5${page && `&offset=${(page-1)*5}`}`
+        fetchAllArticle: build.query<ArticleResponse, FetchArticleRequest>({
+            query: ({token, page}) => ({
+                url:`/articles?limit=5${page && `&offset=${(page-1)*5}`}`,
+                headers: {
+                    Authorization: `Token ${token}`
+                },
             }),
             providesTags: ['post']
         }),
@@ -71,10 +84,22 @@ export const articleAPI = createApi({
             invalidatesTags: ['post']
         }),
         deleteArticle: build.mutation<string, DeleteArticleRequest>({
-            query: ({ token, slug}) => {
+            query: ({ token, slug }) => {
                 return {
                     url: `/articles/${slug}`,
                     method: 'DELETE',
+                    headers: {
+                        Authorization: `Token ${token}`
+                    },
+                }
+            },
+            invalidatesTags: ['post']
+        }),
+        favouriteArticle: build.mutation<string, FavouriteArticleRequest>({
+            query: ({ token, slug, isFavourite}) => {
+                return {
+                    url: `/articles/${slug}/favorite`,
+                    method: `${isFavourite ? 'POST' : 'DELETE'}`,
                     headers: {
                         Authorization: `Token ${token}`
                     },
@@ -86,4 +111,4 @@ export const articleAPI = createApi({
     })
 })
 
-export const { useFetchAllArticleQuery, useFetchCurrentArticleQuery, useCreateArticleMutation, useUpdateArticleMutation, useDeleteArticleMutation } = articleAPI
+export const { useFetchAllArticleQuery, useFetchCurrentArticleQuery, useCreateArticleMutation, useUpdateArticleMutation, useDeleteArticleMutation, useFavouriteArticleMutation } = articleAPI

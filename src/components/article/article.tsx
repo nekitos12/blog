@@ -1,4 +1,4 @@
-import React, {FC, useContext} from 'react';
+import React, {FC, useContext, useState} from 'react';
 import './article.scss';
 import {IArticle} from "../../models/types/article";
 import format from 'date-fns/format'
@@ -6,8 +6,11 @@ import {Link, useHistory} from "react-router-dom";
 import ArticleFull from "../article-full";
 import {Button} from "@mui/material";
 import {CurrentUserContext} from "../../services/context/userLocal";
-import {useDeleteArticleMutation} from "../../services/articleService";
+import {useDeleteArticleMutation, useFavouriteArticleMutation} from "../../services/articleService";
 import {useAuth} from "../../hooks/useAuth";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import { faHeart } from '@fortawesome/free-solid-svg-icons'
+import {CheckedHeart, DefaultHeart} from "../icon/heart";
 interface IArticleProps {
     slug?: string | undefined,
     title?: string | undefined,
@@ -16,7 +19,7 @@ interface IArticleProps {
     tagList?: Array<string> | undefined,
     createdAt?: string | undefined,
     updatedAt?: string | undefined,
-    favorited?: boolean | undefined,
+    favorited?: boolean ,
     full?: boolean
     favoritesCount?: number | undefined,
     author?: {
@@ -26,9 +29,11 @@ interface IArticleProps {
         following?: true | undefined
     }
 }
-export default function Article({slug='', author, tagList, full= false, favoritesCount, title='',  createdAt='', body, description}: IArticleProps) {
+export default function Article({favorited, slug='', author, tagList, full= false, favoritesCount, title='',  createdAt='', body, description}: IArticleProps) {
     const { isAuth } = useContext(CurrentUserContext)
     const [deleteArticle, {}] = useDeleteArticleMutation()
+    const [likeArticle, {}] = useFavouriteArticleMutation()
+
     const {token} = useAuth()
     const {push} = useHistory()
 
@@ -41,6 +46,10 @@ export default function Article({slug='', author, tagList, full= false, favorite
     }
 
     const handleEdit = () => push(`/articles/${slug}/edit`)
+    const handleLike = () => {
+        likeArticle({slug, token, isFavourite: !favorited})
+    }
+    console.log(favorited)
     const articleCreatedAt = format(new Date(createdAt), 'LLLL d, y')
     return (
         <article className="article">
@@ -51,11 +60,16 @@ export default function Article({slug='', author, tagList, full= false, favorite
                             <h1 className="article__title">{getCutText(title)}</h1>
                         </Link>
 
-                        <div className="article__likes">❤{favoritesCount}</div>
+                        <div className="article__likes" onClick={()=>handleLike()}>
+
+                            {favorited ? <CheckedHeart cl="article__heart article__heart_checked"/>:<DefaultHeart cl="article__heart"/>}
+
+                            {favoritesCount}</div>
                     </div>
                     <ul className="article__tag-list">
                         {tagList?.map((tag, index) => tag ? <li key={index}>{getCutText(tag, 30)}</li> : null)}
                     </ul>
+
                 </div>
                 <div className="article__profile">
                     <div className="article__profile-left">

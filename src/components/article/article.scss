@@ -47,7 +47,16 @@
     white-space: nowrap;
   }
   &__likes{
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+  }
+  &__heart{
+    width: 16px;
+    height: 16px;
+    margin-right: 5px;
+  }
+  &__heart_checked{
+    fill: #FF0707;
   }
   &__title {
     margin-right: 13px;
