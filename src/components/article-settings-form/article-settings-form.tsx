@@ -54,6 +54,7 @@ export default function ArticleSettingsForm({tagList, submitText, error, onSucce
 
     const onSubmit:SubmitHandler<IArticleForm> = (data) =>{
         alert(JSON.stringify(data))
+        reset()
         onSuccessSubmit(data)
     }
 

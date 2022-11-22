@@ -1,5 +1,4 @@
 import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/query/react";
-// import {IArticle} from "../models/types/article";
 
 interface NewUserRequest {
     username: string
@@ -8,11 +7,15 @@ interface NewUserRequest {
 }
 
 interface UserResponse {
-    username: string
-    email:string
-    bio?: string
-    image?: string
-    token: string
+    data:{
+        user:{
+            username: string
+            email:string
+            bio?: string
+            image?: string
+            token: string
+        }
+    }
 }
 
 interface LoginUserRequest {
@@ -40,8 +43,6 @@ interface UpdateUserResponse {
     }
 
 }
-
-
 
 export const userAPI = createApi({
     reducerPath: 'userAPI',

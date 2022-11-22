@@ -1,11 +1,9 @@
 export enum UserFormError {
-    userNotFound = 'user-not-found',
-    wrongPassword = 'wrong-password',
-    emailInUse = 'email-already-in-use',
+    isInvalid = 'is invalid',
+    emailOrUsernameInUse = 'is already taken.',
 }
 
 export enum UserFormErrorMessage {
-    userNotFound = 'Пользователь с указанным email не зарегистрирован',
-    wrongPassword = 'Неверный пароль',
-    emailInUse = 'Пользователь с указанным email уже зарегистрирован'
+    isInvalid = 'Email или пароль неверны',
+    emailOrUsernameInUse = 'Пользователь с указанным email или именем уже зарегистрирован'
 }

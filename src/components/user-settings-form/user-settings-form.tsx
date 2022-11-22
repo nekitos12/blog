@@ -21,6 +21,7 @@ export interface IUserForm {
     confirmPassword?: string
     avatarURL?: string
     newPassword: string
+    checkbox: boolean
 }
 
 interface IUserSettingsForm {
@@ -44,11 +45,12 @@ interface IUserSettingsForm {
 
 
 export default function UserSettingsForm({error, onSuccessSubmit, checkboxText, inputField, footer, header, submitText, divider, classes}:IUserSettingsForm) {
-    const {register, handleSubmit, formState: { errors }, watch } = useForm<IUserForm>({
+    const {register, handleSubmit, formState: { errors }, watch, reset } = useForm<IUserForm>({
         mode: "onBlur"
     })
     const onSubmit:SubmitHandler<IUserForm> = (data) =>{
         alert(JSON.stringify(data))
+        reset()
         onSuccessSubmit(data)
     }
 
@@ -76,7 +78,7 @@ export default function UserSettingsForm({error, onSuccessSubmit, checkboxText, 
                 )}
                 {divider && <Divider/>}
                 {checkboxText &&
-                    <FormControlLabel sx={{mr: 0, width: '100%', whiteSpace: 'break-spaces', mt: 1, mb: 2.5}}
+                    <FormControlLabel {...register('checkbox', {required: true})} sx={{mr: 0, width: '100%', whiteSpace: 'break-spaces', mt: 1, mb: 2.5}}
                                       control={<Checkbox defaultChecked/>} label={checkboxText}/>}
                 {error.errorText && <FormError {...error}/>}
                 <Button  component="button" type="submit" variant="contained" color="primary"

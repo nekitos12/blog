@@ -53,7 +53,9 @@
   &__userphoto {
     width: 46px;
     height: 46px;
-    background: url("./../../models/img/header/defaultUser.png") no-repeat;
+    border-radius: 50%;
+    border: 1px solid transparent;
+    //background: url("./../../models/img/header/defaultUser.png") no-repeat;
     background-size: contain;
   }
 }

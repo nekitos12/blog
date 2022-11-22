@@ -5,9 +5,6 @@ import {Redirect} from "react-router-dom";
 import {useAppSelector} from "../hooks/useTypedSelector";
 
 export default function HomePage () {
-    // const user= useAppSelector(state => state.user)
-    const { isAuthLocal } = useAuth()
-    console.log('isAuthLocal', isAuthLocal)
     return (
         <>
             <Redirect to="/articles" />

@@ -4,7 +4,7 @@ import {Link, useHistory} from "react-router-dom";
 import {useAppDispatch} from "../../../hooks/useAppDispatch";
 import {resetUser} from "../../../store/slice/userSlice";
 
-export default function AuthHeader ({username}: { username: string }) {
+export default function AuthHeader ({username, image}: { username: string, image: string }) {
     const dispatch = useAppDispatch()
     const {push} = useHistory()
     const handleClick = () => {
@@ -26,7 +26,7 @@ export default function AuthHeader ({username}: { username: string }) {
                     <div className="profile__button app-header__user">
                         <div className="app-header__username" style={{position: `${username ? 'inherit' : 'absolute'}`}}>{username || ''}</div>
 
-                        <div className="app-header__userphoto"/>
+                        <img src={image} className="app-header__userphoto"/>
                     </div>
                 </div>
 

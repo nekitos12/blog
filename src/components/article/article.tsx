@@ -5,7 +5,7 @@ import format from 'date-fns/format'
 import {Link, useHistory} from "react-router-dom";
 import ArticleFull from "../article-full";
 import {Button} from "@mui/material";
-import {CurrentUserContext} from "../../services/context/userLocal";
+import {CurrentUserContext} from "../../services/context/user";
 import {useDeleteArticleMutation, useFavouriteArticleMutation} from "../../services/articleService";
 import {useAuth} from "../../hooks/useAuth";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
@@ -30,10 +30,9 @@ interface IArticleProps {
     }
 }
 export default function Article({favorited, slug='', author, tagList, full= false, favoritesCount, title='',  createdAt='', body, description}: IArticleProps) {
-    const { isAuth } = useContext(CurrentUserContext)
+    const { isAuth, user } = useContext(CurrentUserContext)
     const [deleteArticle, {}] = useDeleteArticleMutation()
     const [likeArticle, {}] = useFavouriteArticleMutation()
-
     const {token} = useAuth()
     const {push} = useHistory()
 
@@ -44,12 +43,11 @@ export default function Article({favorited, slug='', author, tagList, full= fals
         await deleteArticle({slug, token})
         push('/')
     }
-
+    const defaultCringeUser = "https://static.productionready.io/images/smiley-cyrus.jpg"
     const handleEdit = () => push(`/articles/${slug}/edit`)
     const handleLike = () => {
         likeArticle({slug, token, isFavourite: !favorited})
     }
-    console.log(favorited)
     const articleCreatedAt = format(new Date(createdAt), 'LLLL d, y')
     return (
         <article className="article">
@@ -81,9 +79,9 @@ export default function Article({favorited, slug='', author, tagList, full= fals
                         </div>
                     </div>
 
-                    <img className="article__profile-image" src={require("./1550855401-cc_light.png")}/>
+                    <img className="article__profile-image" src={(author?.image!==defaultCringeUser && author?.image) || require("./../../models/img/header/defaultUser.png")}/>
                 </div>
-                {full && isAuth && <div style={{position: "absolute", top: "60px", right: 0}}>
+                {full && isAuth && user.username === author?.username && <div style={{position: "absolute", top: "60px", right: 0}}>
                     <Button color="error" className="article__header-btn" variant="outlined" onClick={()=>handleDelete(slug)}>Delete</Button>
                         <Button color="success" variant="outlined" className="article__header-btn" onClick={handleEdit}>Edit</Button>
 

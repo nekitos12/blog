@@ -6,11 +6,10 @@ import {Route, Switch} from "react-router-dom";
 import SignInFormPage from "../../pages/sign-in-form-page";
 import SignUpFormPage from "../../pages/sign-up-form-page";
 import ArticlePage from "../../pages/article-page";
-// import {useAppSelector} from "../../hooks/useTypedSelector";
 import HomePage from '../../pages/home-page';
 import {useAuth} from "../../hooks/useAuth";
-import {CurrentUserContext} from "../../services/context/userLocal";
-import {useGetCurrentUserMutation, useLoginUserMutation} from "../../services/userService";
+import {CurrentUserContext} from "../../services/context/user";
+import {useGetCurrentUserMutation} from "../../services/userService";
 import {useAppSelector} from "../../hooks/useTypedSelector";
 import ProfileUserPage from "../../pages/profile-user-page";
 import ArticleSettingsPage from "../../pages/article-settings-page";
@@ -19,26 +18,21 @@ export default function App() {
     const { isAuth, token, username }= useAppSelector(state => state.logUser)
     const [user, setUser] = useState({})
     const userLocal = useAuth()
-    const [getUser, {}] = useGetCurrentUserMutation()
-    const [loginUser, {}] = useLoginUserMutation()
+    const [getUser] = useGetCurrentUserMutation()
     async function getU (token){
         const userResponse = await getUser(token)
-        console.log(userResponse)
         // @ts-ignore
         setUser(userResponse.data.user)
     }
     useEffect(()=>{
         if(userLocal.token){
-            console.log('логинюсь')
             getU(userLocal.token)
         }
-
     }, [])
 
 
     useEffect(()=>{
         if (userLocal.token){
-            console.log('получаю новые данные')
             getU(userLocal.token)
         }
     }, [token, userLocal.token, username])

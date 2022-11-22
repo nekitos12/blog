@@ -8,7 +8,6 @@ export default function ArticlePage () {
 
     const { slug } = useParams<{slug: string}>()
     const { data } = useFetchCurrentArticleQuery(slug)
-    console.log(data)
     if (!data) return null
     return (
         <div style={{width: "min-content", margin: 'auto', background: '#000'}}>

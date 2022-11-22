@@ -14,7 +14,7 @@ export default function FormError({errorText, link}:IFormError) {
     return (
         <div className="form-error">
             {errorText}
-            {link && <Link to={link.address || '/'}>{`Перейти на ${link.text || 'главную'}?`}</Link>}
+            {link && <Link to={link.address || '/'}>{`. Перейти на ${link.text || 'главную'}?`}</Link>}
         </div>
     );
 }
