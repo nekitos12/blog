@@ -15,7 +15,6 @@ export default function ProfileForm() {
   const { token } = useAuth()
   const dispatch = useAppDispatch()
   const [updateUserMut, {}] = useUpdateUserMutation()
-  const { push } = useHistory()
   const inputField = [usernameField, emailField, newPasswordField, avatarField]
 
   async function onSubmit(data: IUserForm) {
@@ -25,8 +24,6 @@ export default function ProfileForm() {
       localStorage.setItem('user', JSON.stringify({ ...user, token }))
       const a = await updateUserMut({ body: user, token })
       dispatch(updateUser(a['data'].user))
-      console.log(a)
-      alert('Данные обновлены!')
     } catch (e) {
       console.log(e)
     }
