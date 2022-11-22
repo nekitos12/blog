@@ -15,6 +15,9 @@ const theme = createTheme({
         },
         secondary: {
           main: 'rgba(0, 0, 0, 0.85)'
+        },
+        info: {
+            main: '#1890FF'
         }
     },
 });

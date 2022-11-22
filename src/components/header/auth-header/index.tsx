@@ -1,8 +1,9 @@
 import React from 'react';
-import {Button} from "@mui/material";
+
 import {Link, useHistory} from "react-router-dom";
 import {useAppDispatch} from "../../../hooks/useAppDispatch";
 import {resetUser} from "../../../store/slice/userSlice";
+import {Button} from "@mui/material";
 
 export default function AuthHeader ({username, image}: { username: string, image: string }) {
     const dispatch = useAppDispatch()

@@ -34,6 +34,7 @@ export default function Article({favorited, slug='', author, tagList, full= fals
     const [deleteArticle, {}] = useDeleteArticleMutation()
     const [likeArticle, {}] = useFavouriteArticleMutation()
     const {token} = useAuth()
+    const [isDeleteClick, setDeleteClick] = useState(false)
     const {push} = useHistory()
 
     const getCutText = (text: string, maxLength = 80): string => {
@@ -82,8 +83,18 @@ export default function Article({favorited, slug='', author, tagList, full= fals
                     <img className="article__profile-image" src={(author?.image!==defaultCringeUser && author?.image) || require("./../../models/img/header/defaultUser.png")}/>
                 </div>
                 {full && isAuth && user.username === author?.username && <div style={{position: "absolute", top: "60px", right: 0}}>
-                    <Button color="error" className="article__header-btn" variant="outlined" onClick={()=>handleDelete(slug)}>Delete</Button>
-                        <Button color="success" variant="outlined" className="article__header-btn" onClick={handleEdit}>Edit</Button>
+                    <dialog className="article__dialog" open={isDeleteClick}>
+                        <div className="article__dialog-text">
+                            <div className="article__dialog-text-icon"></div>
+                            Are you sure to delete this article?
+                        </div>
+                        <div className="article__dialog-btn-list">
+                            <Button className="article__dialog-btn" color="secondary" variant="outlined" onClick={()=>setDeleteClick(false)}>No</Button>
+                            <Button className="article__dialog-btn" color="info" variant="contained" onClick={()=>handleDelete(slug)}>Yes</Button>
+                        </div>
+                    </dialog>
+                    <Button color="error" className="article__header-btn" variant="outlined"  onClick={()=>setDeleteClick(true)}>Delete</Button>
+                    <Button color="success" variant="outlined" className="article__header-btn" onClick={handleEdit}>Edit</Button>
 
                 </div>}
 

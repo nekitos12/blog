@@ -18,6 +18,10 @@ a {
    text-decoration: none;
    cursor: pointer;
 }
+dialog {
+  color: inherit;
+  border: none;
+}
 h1,h2,h3{
   font-weight: inherit;
 }
