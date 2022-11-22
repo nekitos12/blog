@@ -1,14 +1,13 @@
-.profile{
+.profile {
   display: flex;
   align-items: center;
-  &__button{
+  &__button {
     font-size: var(--h6-size) !important;
     line-height: var(--h6-lh) !important;
     text-transform: capitalize !important;
     padding: 6px 18px 10px !important;
   }
 }
-
 
 .app-header {
   height: 80px;
@@ -19,18 +18,18 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  &__link{
-    cursor: pointer
+  &__link {
+    cursor: pointer;
   }
   &__link + &__link {
     margin-left: 27px;
   }
-  &__title{
+  &__title {
     margin-block-start: 0;
     margin-block-end: 0;
   }
   &__signup {
-    color: var(--success)
+    color: var(--success);
   }
   &__create-article {
     color: var(--success) !important;
@@ -39,7 +38,7 @@
     padding: 6px 10px !important;
     text-transform: none !important;
   }
-  &__user{
+  &__user {
     display: flex;
     align-items: center;
     padding: 0 !important;
@@ -59,6 +58,3 @@
     background-size: contain;
   }
 }
-
-
-

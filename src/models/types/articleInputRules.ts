@@ -1,17 +1,17 @@
 interface ITitle {
-    required: string
+  required: string
 }
 
 interface IDescr {
-    required: string
+  required: string
 }
 
 interface IText {
-    required: string
+  required: string
 }
 
 interface ITag {
-    required: boolean
+  required: boolean
 }
 
 export type IArticleFormFieldType = ITitle | IDescr | IText | ITag

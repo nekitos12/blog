@@ -1,12 +1,13 @@
-import React from 'react';
-import ProfileForm from "../components/profile-form";
+import React from 'react'
+
+import ProfileForm from '../components/profile-form'
 
 const ProfileUserPage = () => {
-    return (
-        <div className="profile-page">
-            <ProfileForm />
-        </div>
-    );
-};
+  return (
+    <div className='profile-page'>
+      <ProfileForm />
+    </div>
+  )
+}
 
-export default ProfileUserPage;
+export default ProfileUserPage

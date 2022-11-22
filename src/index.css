@@ -15,14 +15,16 @@ li {
   list-style: none;
 }
 a {
-   text-decoration: none;
-   cursor: pointer;
+  text-decoration: none;
+  cursor: pointer;
 }
 dialog {
   color: inherit;
   border: none;
 }
-h1,h2,h3{
+h1,
+h2,
+h3 {
   font-weight: inherit;
 }
 p,
@@ -32,10 +34,9 @@ ul {
   padding-inline-start: 0;
 }
 
-
 /*constants*/
 
-:root{
+:root {
   --h6-size: 18px;
   --h6-lh: 28px;
   --h5-size: 20px;
@@ -44,7 +45,8 @@ ul {
   --h4-lh: 32px;
   --h3-size: 30px;
   --h3-lh: 36px;
-  --h2-size: 56px;--h2-lh: 64px;
+  --h2-size: 56px;
+  --h2-lh: 64px;
   --h1-size: 44px;
   --h1-lh: 76px;
   --font-sm-size: 12px;
@@ -55,16 +57,12 @@ ul {
   --font-lg-lh: 22px;
 
   /*colors*/
-  --primary: #1890FF;
-  --success: #52C41A;
-  --error: #F5222D;
-  --warning: #FAAD14;
-  --normal: #D9D9D9;
+  --primary: #1890ff;
+  --success: #52c41a;
+  --error: #f5222d;
+  --warning: #faad14;
+  --normal: #d9d9d9;
   --heading: rgba(0, 0, 0, 0.85);
   --text: rgba(0, 0, 0, 0.75);
   --text-secondary: rgba(0, 0, 0, 0.5);
 }
-
-
-
-

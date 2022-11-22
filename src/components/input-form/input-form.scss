@@ -9,20 +9,20 @@
     line-height: 24px;
     padding: 8px 12px;
     display: block;
-    border: 1px solid #BFBFBF;
+    border: 1px solid #bfbfbf;
     min-height: 40px;
     white-space: break-spaces;
   }
   &__input::input-placeholder {
-     font-style: italic;
-     font-weight: 300;
-    color: #BFBFBF;
+    font-style: italic;
+    font-weight: 300;
+    color: #bfbfbf;
   }
 
   &__error {
     color: var(--error);
   }
-  &__input_error{
+  &__input_error {
     border-color: var(--error);
   }
 }
