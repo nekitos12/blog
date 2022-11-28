@@ -90,7 +90,11 @@
   &__profile-created {
     white-space: nowrap;
   }
-
+  &__settings {
+    position: absolute;
+    top: 60px;
+    right: 0;
+  }
   &__likes {
     display: inline-flex;
     align-items: center;

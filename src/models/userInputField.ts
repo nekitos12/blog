@@ -80,10 +80,10 @@ export const avatarField = {
   name: 'avatarURL',
   type: 'url',
   rules: {
-    required: 'Введите корректный url',
+    required: false,
     pattern: {
       value: 'https?://(www.)?[-a-zA-Z0-9@:%._+~#=]{1,256}.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)',
-      message: 'invalid email address',
+      message: 'invalid url address',
     },
   },
 }

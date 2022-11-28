@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { FormEvent, useEffect } from 'react'
 import './article-settings-form.scss'
 import { Button } from '@mui/material'
 import { SubmitHandler, useFieldArray, useForm } from 'react-hook-form'
@@ -63,8 +63,9 @@ export default function ArticleSettingsForm({
     }
   }, [tagList])
 
-  const onSubmit: SubmitHandler<IArticleForm> = data => {
+  const onSubmit: SubmitHandler<IArticleForm> = (data, e) => {
     reset()
+    e?.preventDefault()
     onSuccessSubmit(data)
   }
 
@@ -89,7 +90,7 @@ export default function ArticleSettingsForm({
             )
           })}
         </ul>
-        <div style={{ display: 'flex', alignItems: 'flex-end', marginBottom: '21px' }}>
+        <div className='article-settings-form__tag-list-wrapper'>
           <ul className='article-settings-form__tag-list'>
             <div>Tags</div>
             {fields.map((field, i) => (

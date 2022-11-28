@@ -1,8 +1,8 @@
-import React from 'react'
+import React, { FormEvent } from 'react'
 import './user-settings-form.scss'
 import { Button, Checkbox, Divider, FormControlLabel } from '@mui/material'
 import { Link } from 'react-router-dom'
-import { SubmitHandler, useForm } from 'react-hook-form'
+import { SubmitHandler, useForm, UseFormHandleSubmit } from 'react-hook-form'
 
 import InputForm from '../input-form'
 import { IUserFormFieldType } from '../../models/types/userInputRules'
@@ -35,6 +35,9 @@ interface IUserSettingsForm {
   footer?: Array<string>
   divider?: boolean
   onSuccessSubmit: SubmitHandler<IUserForm>
+  currentAvatarUrl?: string
+  currentEmail?: string
+  currentUsername?: string
   error: {
     errorText: string
     link?: {
@@ -53,6 +56,9 @@ export default function UserSettingsForm({
   header,
   submitText,
   divider,
+  currentEmail,
+  currentAvatarUrl,
+  currentUsername,
 }: IUserSettingsForm) {
   const {
     register,
@@ -63,8 +69,9 @@ export default function UserSettingsForm({
   } = useForm<IUserForm>({
     mode: 'onBlur',
   })
-  const onSubmit: SubmitHandler<IUserForm> = data => {
+  const onSubmit: SubmitHandler<IUserForm> = (data, e) => {
     reset()
+    e?.preventDefault()
     onSuccessSubmit(data)
   }
 
@@ -81,10 +88,15 @@ export default function UserSettingsForm({
               }
             }
           }
+          let value = ''
+          if (name === 'email') value += currentEmail ? currentEmail : ''
+          if (name === 'username') value += currentUsername ? currentUsername : ''
+          if (name === 'avatarURL') value += currentAvatarUrl ? currentAvatarUrl : ''
           return (
             <div key={name}>
               <InputForm
                 errors={errors}
+                defaultValue={value}
                 type={type}
                 register={register}
                 rules={rules}

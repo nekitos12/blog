@@ -16,7 +16,10 @@ export default function Header() {
       </Link>
       <div className='app-header__profile profile'>
         {isAuth ? (
-          <AuthHeader image={userLocal.image || user?.image} username={userLocal.username || user?.username || ''} />
+          <AuthHeader
+            image={userLocal.image || user?.image || require('../../models/img/header/defaultUser.png')}
+            username={userLocal.username || user?.username || ''}
+          />
         ) : (
           <NoneAuthHeader />
         )}

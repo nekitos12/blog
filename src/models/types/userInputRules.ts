@@ -1,9 +1,9 @@
 interface IEmail {
-  required: string
+  required: string | boolean
 }
 
 interface IUsername {
-  required: string
+  required: string | boolean
   min: number
   max: number
 }
@@ -18,7 +18,7 @@ interface IConfirmPassword {
 }
 
 interface IAvatar {
-  required: string
+  required: string | boolean
 }
 
 export type IUserFormFieldType = IEmail | IUsername | IPassword | IConfirmPassword | IAvatar

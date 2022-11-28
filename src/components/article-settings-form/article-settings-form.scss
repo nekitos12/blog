@@ -26,6 +26,11 @@
   &__input-list-item + &__input-list-item {
     margin-top: 21px;
   }
+  &__tag-list-wrapper {
+    display: flex;
+    align-items: flex-end;
+    margin-bottom: 21px;
+  }
   &__tag-list {
     display: flex;
     flex-direction: column;

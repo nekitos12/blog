@@ -26,9 +26,7 @@ export default function AuthHeader({ username, image }: { username: string; imag
       </Link>
       <div onClick={handleUserClick} className='app-header__link'>
         <div className='profile__button app-header__user'>
-          <div className='app-header__username' style={{ position: `${username ? 'inherit' : 'absolute'}` }}>
-            {username || ''}
-          </div>
+          <div className={`app-header__username ${!username ? 'none-auth' : ''}`}>{username || ''}</div>
 
           <img src={image} className='app-header__userphoto' />
         </div>

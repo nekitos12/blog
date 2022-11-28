@@ -23,6 +23,11 @@ interface CreateArticleRequest {
   }
 }
 
+interface LikeArticleRequest {
+  token: string
+  slug: string
+}
+
 interface DeleteArticleRequest {
   token: string
   slug: string
@@ -52,10 +57,14 @@ export const articleAPI = createApi({
       }),
       providesTags: ['post'],
     }),
-    fetchCurrentArticle: build.query<ArticleResponse, string>({
-      query: (slug = '') => ({
+    fetchCurrentArticle: build.query<ArticleResponse, LikeArticleRequest>({
+      query: ({ slug = '', token }) => ({
         url: `/articles/${slug}`,
+        headers: {
+          Authorization: `Token ${token}`,
+        },
       }),
+      providesTags: ['post'],
     }),
     createArticle: build.mutation<CreateArticleResponse, CreateArticleRequest>({
       query: ({ body, token }) => ({

@@ -14,7 +14,7 @@ interface IInput {
   errors: any
   type: string
   tag?: string
-  defaultValue?: string
+  defaultValue?: string | undefined
   placeholder?: string
   register: UseFormRegister<IUserForm> | UseFormRegister<IArticleForm>
   rules: IUserFormFieldType | IArticleFormFieldType
@@ -40,7 +40,7 @@ export default function InputForm({
           {...register(name, rules)}
           placeholder={placeholder || label}
           type={type}
-          defaultValue={defaultValue}
+          defaultValue={defaultValue || ''}
           name={name}
           className={`label__input ${cl || ''} ${(errors?.[name]?.message && 'label__input_error') || ''}`}
         />

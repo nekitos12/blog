@@ -16,7 +16,7 @@ export default function ArticleCreateForm() {
   const { token } = useAuth()
   const inputField = [titleField, descrField, bodyField]
   if (!isAuth) {
-    return <Redirect to='/' />
+    return <Redirect to='/sign-in' />
   }
 
   async function onSubmit(data: IArticleForm) {
@@ -25,7 +25,6 @@ export default function ArticleCreateForm() {
       const tags = formTags.reduce((arr: string[], { tag }) => (tag ? [...arr, tag] : arr), [])
       const article = { tagList: tags, body, title, description }
       const a = await createArticle({ body: article, token })
-      localStorage.setItem('article', JSON.stringify(article))
       push('/')
     } catch (e) {
       console.log(e)

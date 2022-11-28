@@ -12,7 +12,7 @@ import { updateUser } from '../../store/slice/userSlice'
 
 export default function ProfileForm() {
   const [errorForm, setErrorForm] = useState('')
-  const { token } = useAuth()
+  const { token, username: currentUsername, email: currentEmail, image: currentAvatarUrl } = useAuth()
   const dispatch = useAppDispatch()
   const [updateUserMut, {}] = useUpdateUserMutation()
   const inputField = [usernameField, emailField, newPasswordField, avatarField]
@@ -32,6 +32,9 @@ export default function ProfileForm() {
     <div className='profile-form'>
       <UserSettingsForm
         error={{ errorText: errorForm }}
+        currentUsername={currentUsername}
+        currentEmail={currentEmail}
+        currentAvatarUrl={currentAvatarUrl}
         onSuccessSubmit={onSubmit}
         submitText='Save'
         header='Edit Profile'

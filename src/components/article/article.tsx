@@ -46,7 +46,7 @@ export default function Article({
   const [isDeleteClick, setDeleteClick] = useState(false)
   const { push } = useHistory()
 
-  const getCutText = (text: string, maxLength = 80): string => {
+  const getCutText = (text: string, maxLength = 70): string => {
     return text.length > maxLength ? `${text.slice(0, maxLength)}` : text
   }
   async function handleDelete(sl) {
@@ -56,8 +56,10 @@ export default function Article({
   const defaultCringeUser = 'https://static.productionready.io/images/smiley-cyrus.jpg'
   const handleEdit = () => push(`/articles/${slug}/edit`)
   const handleLike = () => {
+    console.log('я тут')
     likeArticle({ slug, token, isFavourite: !favorited })
   }
+  console.log(favorited)
   const articleCreatedAt = format(new Date(createdAt), 'LLLL d, y')
   return (
     <article className='article'>
@@ -98,7 +100,7 @@ export default function Article({
           />
         </div>
         {full && isAuth && user.username === author?.username && (
-          <div style={{ position: 'absolute', top: '60px', right: 0 }}>
+          <div className='article__settings'>
             <dialog className='article__dialog' open={isDeleteClick}>
               <div className='article__dialog-text'>
                 <div className='article__dialog-text-icon'></div>

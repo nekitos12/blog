@@ -13,7 +13,7 @@ export const descrField = {
   type: 'text',
   placeholder: 'Title',
   rules: {
-    required: 'Поле обязательное для заполнения',
+    required: false,
   },
 }
 

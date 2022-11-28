@@ -12,25 +12,22 @@ import { CurrentUserContext } from '../../services/context/user'
 export default function ArticleEditForm() {
   const { isAuth } = useContext(CurrentUserContext)
   const { slug } = useParams<{ slug: string }>()
-  const { data } = useFetchCurrentArticleQuery(slug)
-
+  const { token } = useAuth()
+  const { data } = useFetchCurrentArticleQuery({ slug, token })
   const [updateArticle, {}] = useUpdateArticleMutation()
   const { push } = useHistory()
-  const { token } = useAuth()
   const inputField = [titleField, descrField, bodyField]
 
   if (!isAuth) {
-    return <Redirect to='/' />
+    return <Redirect to='/sign-in' />
   }
 
   async function onSubmit(formData: IArticleForm) {
     try {
       const { tags: formTags, title, body, description } = formData
       const tags = formTags.reduce((arr: string[], { tag }) => (tag ? [...arr, tag] : arr), [])
-      console.log(tags)
       const article = { tagList: tags, body, title, description }
       const a = await updateArticle({ body: article, token, slug })
-      localStorage.setItem('article', JSON.stringify(article))
       push('/')
     } catch (e) {
       console.log(e)
