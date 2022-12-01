@@ -28,7 +28,14 @@ export default function AuthHeader({ username, image }: { username: string; imag
         <div className='profile__button app-header__user'>
           <div className={`app-header__username ${!username ? 'none-auth' : ''}`}>{username || ''}</div>
 
-          <img src={image} className='app-header__userphoto' />
+          <img
+            src={image}
+            className='app-header__userphoto'
+            onError={({ currentTarget }) => {
+              currentTarget.onerror = null
+              currentTarget.src = require('../../../models/img/header/defaultUser.png')
+            }}
+          />
         </div>
       </div>
 
